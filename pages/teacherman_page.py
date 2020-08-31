@@ -7,6 +7,7 @@ login_url = host+"/xadmin/hello/teacherman/"
 class TeachermanPage(Base):
     #左侧老师
     loc_1 = ("xpath",'//a[@href="/xadmin/hello/teacherman/"]')
+    #loc_1 = ("xpath",'//*[@id="left-side"]/ul[1]/li[8]/a')
     #新增老师
     loc_2 = ("xpath",'//a[@class="btn btn-primary"]')
     #输入新增老师信息

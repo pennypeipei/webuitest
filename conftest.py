@@ -3,7 +3,8 @@ import pytest
 from pages.login_page import LoginPage
 import os
 import allure
-
+import sys
+from selenium.webdriver.chrome.options import Options
 
 _driver = None
 @pytest.hookimpl(tryfirst=True,hookwrapper=True)
@@ -28,9 +29,20 @@ def pytest_runtest_makereport(item,call):
 @pytest.fixture(scope="session")
 def driver():
     global _driver
+    chrome_options = Options()
     if _driver==None:
-        _driver = webdriver.Chrome()
-    _driver.maximize_window()
+        if "win" in sys.platform:
+            print("当前系统是windows")
+            _driver = webdriver.Chrome()
+            _driver.maximize_window()
+        else:
+            print("当前系统是linux")
+            chrome_options.add_argument('--window-size=1920,1080')
+            chrome_options.add_argument('--no-sandbox')
+            chrome_options.add_argument('--headless')
+            chrome_options.add_argument('--disable-gpu')
+            chrome_options.add_argument('--disable-dev-shm-usage')
+            _driver = webdriver.Chrome('chromedriver',chrome_options=chrome_options)
     yield _driver
     _driver.quit()
 
