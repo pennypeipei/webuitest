@@ -17,6 +17,6 @@ class TestTeacherman():
         with allure.step("点击保存"):
             teacher.save_teacherman()
         with allure.step("获取实际结果"):
-            result = teacher.is_add_success(expect="xx")
+            result = teacher.is_add_success(expect="cc")
         assert result
 
